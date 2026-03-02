@@ -27,14 +27,11 @@
           packages = with pkgs; [
             nodejs_20
             bun
-            pnpm
-            turbo
-
-            git
-            curl
-            unzip
-            claude-code
           ];
+          shellHook = ''
+            export PATH=$PATH:$(pwd)/node_modules/.bin
+            bun add -g turbo
+          '';
         };
       }
     );
