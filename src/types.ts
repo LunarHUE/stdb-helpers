@@ -1,3 +1,11 @@
+// Portions of this file are derived from the SpacetimeDB TypeScript SDK.
+// Copyright (c) 2023 Clockwork Laboratories, Inc.
+// Licensed under the Business Source License 1.1
+// https://github.com/clockworklabs/SpacetimeDB
+//
+// These type definitions mirror internal types that are not exported by the
+// spacetimedb package, reproduced here to enable proper TypeScript inference.
+
 import type {
   TypeBuilder,
   ColumnBuilder,

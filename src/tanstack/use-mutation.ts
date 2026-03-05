@@ -1,3 +1,12 @@
+// Portions of this file are derived from the SpacetimeDB TypeScript SDK
+// (`useReducer` hook in packages/sdk/src/react/useReducer.tsx).
+// Copyright (c) 2023 Clockwork Laboratories, Inc.
+// Licensed under the Business Source License 1.1
+// https://github.com/clockworklabs/SpacetimeDB
+//
+// Modifications: wrapped the reducer call in TanStack Query's useMutation
+// to expose onMutate/onError/onSettled lifecycle hooks for optimistic updates.
+
 import { useMutation as useBaseMutation } from '@tanstack/react-query'
 import type {
   UseMutationOptions,

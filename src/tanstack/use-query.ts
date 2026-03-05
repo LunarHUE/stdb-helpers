@@ -1,5 +1,11 @@
-
-
+// Portions of this file are derived from the SpacetimeDB TypeScript SDK
+// (`useTable` hook in packages/sdk/src/react/useTable.tsx).
+// Copyright (c) 2023 Clockwork Laboratories, Inc.
+// Licensed under the Business Source License 1.1
+// https://github.com/clockworklabs/SpacetimeDB
+//
+// Modifications: replaced useSyncExternalStore with TanStack Query's useQuery
+// so consumers can use optimistic updates, cancelQueries, and setQueryData.
 
 import {
   useQuery as useBaseQuery,
