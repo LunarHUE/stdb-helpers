@@ -16,6 +16,10 @@
     "publish": {
       "dependsOn": ["^publish"],
       "outputs": ["examples/**/*.tsx"]
+    },
+    "start": {
+      "dependsOn": ["^start"],
+      "outputs": ["examples/**/*.tsx"]
     }
   }
 }

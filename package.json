@@ -1,5 +1,5 @@
 {
-  "name": "spacetimedb-helpers",
+  "name": "@lunarhue/stdb-helpers",
   "version": "0.0.1",
   "scripts": {},
   "dependencies": {
@@ -17,5 +17,8 @@
     "shared/*",
     "tests/*"
   ],
-  "packageManager": "bun@1.3.9"
+  "packageManager": "bun@1.3.9",
+  "patchedDependencies": {
+    "spacetimedb@2.0.3": "patches/spacetimedb@2.0.3.patch"
+  }
 }

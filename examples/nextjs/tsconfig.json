@@ -21,7 +21,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@shared/*": ["../../shared/spacetimedb/src/*"],
+      "@lunarhue/stdb-helpers-db/*": ["../../shared/db/src/*"],
       "@lunarhue/stdb-helpers/*": ["../../src/*"]
     }
   },

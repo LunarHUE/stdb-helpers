@@ -1,6 +1,6 @@
-import { PersonList } from './PersonList'
+import { PersonList } from '../components/person-list'
 import { prefetch } from '@/lib/preftech'
-import { tables } from '@shared/module_bindings'
+import { tables } from '@lunarhue/stdb-helpers-db/module_bindings'
 export default async function Home() {
   const [error, initialPeople] = await prefetch(tables.person)
 
@@ -8,16 +8,11 @@ export default async function Home() {
     return <div>Error: {error.message}</div>
   }
 
-  console.log('initialPeople', initialPeople)
-
   await new Promise((resolve) => setTimeout(resolve, 1000))
 
-  const [error2, initialPeople2] = await prefetch(tables.person)
-  if (error2) {
-    return <div>Error: {error2.message}</div>
-  }
-
-  console.log('initialPeople2', initialPeople2)
+  // take notice that when this prefetch occurs we dont see a new onConnect callback since the same connection is being
+  // used again.
+  await prefetch(tables.person)
 
   return (
     <main style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>

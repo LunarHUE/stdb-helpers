@@ -42,6 +42,9 @@
       },
     },
   },
+  "patchedDependencies": {
+    "spacetimedb@2.0.3": "patches/spacetimedb@2.0.3.patch",
+  },
   "packages": {
     "@emnapi/runtime": ["@emnapi/runtime@1.8.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-mehfKSMWjjNol8659Z8KxEMrdSJDDot5SXMq00dM8BN4o+CLNXQ0xH2V7EchNHV4RmbZLmmPdEaXZc5H2FXmDg=="],
 

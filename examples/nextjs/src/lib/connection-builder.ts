@@ -1,4 +1,7 @@
-import { DbConnection, type ErrorContext } from '@shared/module_bindings'
+import {
+  DbConnection,
+  type ErrorContext,
+} from '@lunarhue/stdb-helpers-db/module_bindings'
 import type { Identity } from 'spacetimedb'
 
 const HOST =

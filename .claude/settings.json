@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node -e \"console.log\\(require\\(''/home/tristen/repos/personal/spacetimedb-helpers/node_modules/react/package.json''\\).version\\)\")"
+      "Bash(node -e \"console.log\\(require\\(''/home/tristen/repos/personal/spacetimedb-helpers/node_modules/react/package.json''\\).version\\)\")",
+      "Bash(grep -l \"\\\\.\\\\./\\\\.\\\\./src\\\\|\\\\.\\\\.\\\\/src\" /home/tristen/repos/personal/spacetimedb-helpers/node_modules/spacetimedb/dist/lib/*.d.ts)",
+      "Bash(grep -l \"\\\\.\\\\./\\\\.\\\\./src\\\\|\\\\.\\\\.\\\\/src\" /home/tristen/repos/personal/spacetimedb-helpers/node_modules/spacetimedb/dist/sdk/*.d.ts)",
+      "Read(//home/tristen/repos/personal/spacetimedb-helpers/**)",
+      "Bash(ls -lh /home/tristen/repos/personal/spacetimedb-helpers/src/*.ts /home/tristen/repos/personal/spacetimedb-helpers/src/**/*.ts)"
     ]
   }
 }

@@ -1,0 +1,940 @@
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index e64d6d050573b6f993a08501dbad4ce3e76f1048..de90e7dddb8d9d8ce3155e1220855a00f2de68e9 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -1,17 +1,17 @@
+-export * from '../src/lib/connection_id';
+-export * from '../src/lib/errors';
+-export * from '../src/lib/algebraic_type';
+-export * from '../src/lib/algebraic_value';
+-export { default as BinaryReader } from '../src/lib/binary_reader';
+-export { default as BinaryWriter } from '../src/lib/binary_writer';
+-export * from '../src/lib/schedule_at';
+-export * from '../src/lib/time_duration';
+-export * from '../src/lib/timestamp';
+-export * from '../src/lib/uuid';
+-export * from '../src/lib/util';
+-export * from '../src/lib/identity';
+-export * from '../src/lib/option';
+-export * from '../src/lib/result';
+-export * from '../src/lib/query';
+-export * from '../src/sdk';
++export * from './lib/connection_id';
++export * from './lib/errors';
++export * from './lib/algebraic_type';
++export * from './lib/algebraic_value';
++export { default as BinaryReader } from './lib/binary_reader';
++export { default as BinaryWriter } from './lib/binary_writer';
++export * from './lib/schedule_at';
++export * from './lib/time_duration';
++export * from './lib/timestamp';
++export * from './lib/uuid';
++export * from './lib/util';
++export * from './lib/identity';
++export * from './lib/option';
++export * from './lib/result';
++export * from './lib/query';
++export * from './sdk';
+ //# sourceMappingURL=index.d.ts.map
+diff --git a/dist/lib/algebraic_type.d.ts b/dist/lib/algebraic_type.d.ts
+index f0851f40de0077b62d5580afc305726bf4c21ff8..5c71d993f675c3a382598a7192a1f2ac5f024809 100644
+--- a/dist/lib/algebraic_type.d.ts
++++ b/dist/lib/algebraic_type.d.ts
+@@ -1,6 +1,6 @@
+-import BinaryReader from '../../src/lib/binary_reader';
+-import BinaryWriter from '../../src/lib/binary_writer';
+-import * as AlgebraicTypeVariants from '../../src/lib/algebraic_type_variants';
++import BinaryReader from './binary_reader';
++import BinaryWriter from './binary_writer';
++import * as AlgebraicTypeVariants from './algebraic_type_variants';
+ type TypespaceType = {
+     types: AlgebraicTypeType[];
+ };
+diff --git a/dist/lib/algebraic_type_variants.d.ts b/dist/lib/algebraic_type_variants.d.ts
+index 598601b21f10aa9e59d738b09c1d8605cef5881f..de2e3fa44965ce82b4a4c578f151a59389ab80dd 100644
+--- a/dist/lib/algebraic_type_variants.d.ts
++++ b/dist/lib/algebraic_type_variants.d.ts
+@@ -1,4 +1,4 @@
+-import type { AlgebraicTypeType, ProductTypeType, SumTypeType } from '../../src/lib/algebraic_type';
++import type { AlgebraicTypeType, ProductTypeType, SumTypeType } from './algebraic_type';
+ export type Ref = {
+     tag: 'Ref';
+     value: number;
+diff --git a/dist/lib/algebraic_value.d.ts b/dist/lib/algebraic_value.d.ts
+index a8f10729bd63ab120303f7beff07242c0cf0483d..2fbdd4458347bc7be01f28bc4d64be2e92bbe696 100644
+--- a/dist/lib/algebraic_value.d.ts
++++ b/dist/lib/algebraic_value.d.ts
+@@ -1,4 +1,4 @@
+-import BinaryReader from '../../src/lib/binary_reader';
++import BinaryReader from './binary_reader';
+ export interface ParseableType<T> {
+     deserialize: (reader: BinaryReader) => T;
+ }
+diff --git a/dist/lib/constraints.d.ts b/dist/lib/constraints.d.ts
+index b1a72cd500a36acbf43c3e778cff26533a301bab..bf711623aa283f813cb935cb53c76bf10eb46b2e 100644
+--- a/dist/lib/constraints.d.ts
++++ b/dist/lib/constraints.d.ts
+@@ -1,5 +1,5 @@
+-import type { UntypedTableDef } from '../../src/lib/table';
+-import type { ColumnMetadata } from '../../src/lib/type_builders';
++import type { UntypedTableDef } from './table';
++import type { ColumnMetadata } from './type_builders';
+ /**
+  * A helper type to determine if all columns in an index are unique.
+  */
+diff --git a/dist/lib/indexes.d.ts b/dist/lib/indexes.d.ts
+index f0416d3fdfc0ae7d20274d14af4edac3629bb0bf..9f5bb6847f49653864b670ead2e1fa2bbbeefde5 100644
+--- a/dist/lib/indexes.d.ts
++++ b/dist/lib/indexes.d.ts
+@@ -1,8 +1,8 @@
+-import type { RowType, UntypedTableDef } from '../../src/lib/table';
+-import type { ColumnMetadata, IndexTypes } from '../../src/lib/type_builders';
+-import type { CollapseTuple, Prettify } from '../../src/lib/type_util';
+-import { Range } from '../../src/server/range';
+-import type { ColumnIsUnique } from '../../src/lib/constraints';
++import type { RowType, UntypedTableDef } from './table';
++import type { ColumnMetadata, IndexTypes } from './type_builders';
++import type { CollapseTuple, Prettify } from './type_util';
++import { Range } from '../server/range';
++import type { ColumnIsUnique } from './constraints';
+ /**
+  * Index helper type used *inside* {@link table} to enforce that only
+  * existing column names are referenced.
+diff --git a/dist/lib/option.d.ts b/dist/lib/option.d.ts
+index 96ff81ccb044d1a1077e88232e3120dc1485196c..ce161039141b3dc12dd150d58bf665fffd79ce86 100644
+--- a/dist/lib/option.d.ts
++++ b/dist/lib/option.d.ts
+@@ -1,4 +1,4 @@
+-import { AlgebraicType } from '../../src/lib/algebraic_type';
++import { AlgebraicType } from './algebraic_type';
+ export type OptionAlgebraicType<T extends AlgebraicType = AlgebraicType> = {
+     tag: 'Sum';
+     value: {
+diff --git a/dist/lib/query.d.ts b/dist/lib/query.d.ts
+index 266e3f4aa23b92019c000c400e9f227407ade7a9..4e048d91f5adf49c93e609cfd52a5de30db2f02e 100644
+--- a/dist/lib/query.d.ts
++++ b/dist/lib/query.d.ts
+@@ -1,11 +1,11 @@
+-import { ConnectionId } from '../../src/lib/connection_id';
+-import { Identity } from '../../src/lib/identity';
+-import type { ColumnIndex, IndexColumns, IndexOpts } from '../../src/lib/indexes';
+-import type { UntypedSchemaDef } from '../../src/lib/schema';
+-import type { UntypedTableSchema } from '../../src/lib/table_schema';
+-import { Timestamp } from '../../src/lib/timestamp';
+-import type { ColumnBuilder, ColumnMetadata, RowBuilder, TypeBuilder } from '../../src/lib/type_builders';
+-import type { Values } from '../../src/lib/type_util';
++import { ConnectionId } from './connection_id';
++import { Identity } from './identity';
++import type { ColumnIndex, IndexColumns, IndexOpts } from './indexes';
++import type { UntypedSchemaDef } from './schema';
++import type { UntypedTableSchema } from './table_schema';
++import { Timestamp } from './timestamp';
++import type { ColumnBuilder, ColumnMetadata, RowBuilder, TypeBuilder } from './type_builders';
++import type { Values } from './type_util';
+ /**
+  * Helper to get the set of table names.
+  */
+diff --git a/dist/lib/reducer_schema.d.ts b/dist/lib/reducer_schema.d.ts
+index eb2600d59be686c16bc75b02654b15b8bca7ef3d..5bec9122433e6a3dd17cba78c1709037f962f0fb 100644
+--- a/dist/lib/reducer_schema.d.ts
++++ b/dist/lib/reducer_schema.d.ts
+@@ -1,8 +1,8 @@
+-import type { ProductType } from '../../src/lib/algebraic_type';
+-import type { RawReducerDefV9 } from '../../src/lib/autogen/types';
+-import type { ParamsObj } from '../../src/lib/reducers';
+-import type { RowBuilder, RowObj } from '../../src/lib/type_builders';
+-import type { CamelCase } from '../../src/lib/type_util';
++import type { ProductType } from './algebraic_type';
++import type { RawReducerDefV9 } from './autogen/types';
++import type { ParamsObj } from './reducers';
++import type { RowBuilder, RowObj } from './type_builders';
++import type { CamelCase } from './type_util';
+ /**
+  * Represents a handle to a database reducer, including its name and argument type.
+  */
+diff --git a/dist/lib/reducers.d.ts b/dist/lib/reducers.d.ts
+index eefad937dc1f6b200fcf7bc67323e2ba728abea1..81a7f51f80b9d8496fbd83e5d60ad6e07204c580 100644
+--- a/dist/lib/reducers.d.ts
++++ b/dist/lib/reducers.d.ts
+@@ -1,11 +1,11 @@
+-import type { DbView } from '../../src/server/db_view';
+-import type { Random } from '../../src/server/rng';
+-import type { ConnectionId } from '../../src/lib/connection_id';
+-import type { Identity } from '../../src/lib/identity';
+-import { type UntypedSchemaDef } from '../../src/lib/schema';
+-import { type Timestamp } from '../../src/lib/timestamp';
+-import { ColumnBuilder, type InferTypeOfRow, type TypeBuilder } from '../../src/lib/type_builders';
+-import { Uuid } from '../../src/lib/uuid';
++import type { DbView } from '../server/db_view';
++import type { Random } from '../server/rng';
++import type { ConnectionId } from './connection_id';
++import type { Identity } from './identity';
++import { type UntypedSchemaDef } from './schema';
++import { type Timestamp } from './timestamp';
++import { ColumnBuilder, type InferTypeOfRow, type TypeBuilder } from './type_builders';
++import { Uuid } from './uuid';
+ /**
+  * Helper to extract the parameter types from an object type
+  */
+diff --git a/dist/lib/result.d.ts b/dist/lib/result.d.ts
+index d57a7fc7f5afc9b9ba935c70b0542b9129f31c8d..62505bd8d58fcae860323e074c8d8479fd7941f8 100644
+--- a/dist/lib/result.d.ts
++++ b/dist/lib/result.d.ts
+@@ -1,4 +1,4 @@
+-import { AlgebraicType } from '../../src/lib/algebraic_type';
++import { AlgebraicType } from './algebraic_type';
+ export type ResultAlgebraicType<T extends AlgebraicType = AlgebraicType, E extends AlgebraicType = AlgebraicType> = {
+     tag: 'Sum';
+     value: {
+diff --git a/dist/lib/schedule_at.d.ts b/dist/lib/schedule_at.d.ts
+index cb7ff503a42c1f2936b431b94d20d75536a0c471..a07c0214f93305ee0f3a0037d5ef227a68ed6612 100644
+--- a/dist/lib/schedule_at.d.ts
++++ b/dist/lib/schedule_at.d.ts
+@@ -1,6 +1,6 @@
+-import { AlgebraicType } from '../../src/lib/algebraic_type';
+-import { TimeDuration, type TimeDurationAlgebraicType } from '../../src/lib/time_duration';
+-import { Timestamp, type TimestampAlgebraicType } from '../../src/lib/timestamp';
++import { AlgebraicType } from './algebraic_type';
++import { TimeDuration, type TimeDurationAlgebraicType } from './time_duration';
++import { Timestamp, type TimestampAlgebraicType } from './timestamp';
+ export type ScheduleAtAlgebraicType = {
+     tag: 'Sum';
+     value: {
+diff --git a/dist/lib/schema.d.ts b/dist/lib/schema.d.ts
+index d7dedc4b3973ca84bdf3a9d60eda4b55374585e3..6e5002796aff3bb85e7baf9df84b940780834c38 100644
+--- a/dist/lib/schema.d.ts
++++ b/dist/lib/schema.d.ts
+@@ -1,9 +1,9 @@
+-import { AlgebraicType, type AlgebraicTypeType } from '../../src/lib/algebraic_type';
+-import type { CaseConversionPolicy, RawModuleDefV10, RawModuleDefV10Section, RawScopedTypeNameV10, RawTableDefV10 } from '../../src/lib/autogen/types';
+-import type { UntypedTableDef } from '../../src/lib/table';
+-import type { UntypedTableSchema } from '../../src/lib/table_schema';
+-import { ProductBuilder, RefBuilder, RowBuilder, SumBuilder, TypeBuilder, type Infer, type InferSpacetimeTypeOfTypeBuilder } from '../../src/lib/type_builders';
+-import type { Values } from '../../src/lib/type_util';
++import { AlgebraicType, type AlgebraicTypeType } from './algebraic_type';
++import type { CaseConversionPolicy, RawModuleDefV10, RawModuleDefV10Section, RawScopedTypeNameV10, RawTableDefV10 } from './autogen/types';
++import type { UntypedTableDef } from './table';
++import type { UntypedTableSchema } from './table_schema';
++import { ProductBuilder, RefBuilder, RowBuilder, SumBuilder, TypeBuilder, type Infer, type InferSpacetimeTypeOfTypeBuilder } from './type_builders';
++import type { Values } from './type_util';
+ export type TableNamesOf<S extends UntypedSchemaDef> = Values<S['tables']>['accessorName'];
+ /**
+  * An untyped representation of the database schema.
+@@ -46,10 +46,10 @@ export declare class ModuleContext {
+             value: number;
+         } | {
+             tag: "Sum";
+-            value: import("../../src/lib/algebraic_type").SumTypeType;
++            value: import(algebraic_type).SumTypeType;
+         } | {
+             tag: "Product";
+-            value: import("../../src/lib/algebraic_type").ProductTypeType;
++            value: import(algebraic_type).ProductTypeType;
+         } | {
+             tag: "Array";
+             value: AlgebraicTypeType;
+diff --git a/dist/lib/table.d.ts b/dist/lib/table.d.ts
+index bdd3388b78e65ca5e8cc6a447ab3c6899fa32e4f..23e61508c081fb3ea368f576474caa180bbb9781 100644
+--- a/dist/lib/table.d.ts
++++ b/dist/lib/table.d.ts
+@@ -1,10 +1,10 @@
+-import type { ProcedureExport, ReducerExport, t } from '../../src/server';
+-import { RawTableDefV10 } from '../../src/lib/autogen/types';
+-import type { AllUnique, ConstraintOpts } from '../../src/lib/constraints';
+-import type { ColumnIndex, IndexColumns, Indexes, IndexOpts, ReadonlyIndexes } from '../../src/lib/indexes';
+-import type { TableSchema } from '../../src/lib/table_schema';
+-import { RowBuilder, type ColumnBuilder, type ColumnMetadata, type InferTypeOfRow, type RowObj, type TypeBuilder } from '../../src/lib/type_builders';
+-import type { InvalidColumnMetadata, Prettify, ValidateColumnMetadata } from '../../src/lib/type_util';
++import type { ProcedureExport, ReducerExport, t } from '../server';
++import { RawTableDefV10 } from './autogen/types';
++import type { AllUnique, ConstraintOpts } from './constraints';
++import type { ColumnIndex, IndexColumns, Indexes, IndexOpts, ReadonlyIndexes } from './indexes';
++import type { TableSchema } from './table_schema';
++import { RowBuilder, type ColumnBuilder, type ColumnMetadata, type InferTypeOfRow, type RowObj, type TypeBuilder } from './type_builders';
++import type { InvalidColumnMetadata, Prettify, ValidateColumnMetadata } from './type_util';
+ export type AlgebraicTypeRef = number;
+ /**
+  * Check if any column in the row has invalid metadata.
+diff --git a/dist/lib/table_schema.d.ts b/dist/lib/table_schema.d.ts
+index 79dfa44f651caed5fd231d919a4d84224e397d2d..c12d289ddfea95b5e5bd220cd1ab9e4de1f996ac 100644
+--- a/dist/lib/table_schema.d.ts
++++ b/dist/lib/table_schema.d.ts
+@@ -1,8 +1,8 @@
+-import type { ProcedureExport, ReducerExport } from '../../src/server';
+-import type { RawScheduleDefV10, RawTableDefV10 } from '../../src/lib/autogen/types';
+-import type { IndexOpts } from '../../src/lib/indexes';
+-import type { ModuleContext } from '../../src/lib/schema';
+-import type { ColumnBuilder, RowBuilder } from '../../src/lib/type_builders';
++import type { ProcedureExport, ReducerExport } from '../server';
++import type { RawScheduleDefV10, RawTableDefV10 } from './autogen/types';
++import type { IndexOpts } from './indexes';
++import type { ModuleContext } from './schema';
++import type { ColumnBuilder, RowBuilder } from './type_builders';
+ /**
+  * Represents a handle to a database table, including its name, row type, and row spacetime type.
+  */
+diff --git a/dist/lib/time_duration.d.ts b/dist/lib/time_duration.d.ts
+index 5721162854e8fb2b076fc050a3a7b20003ba547b..d17a17394b449a6fc0318365f04db2e7052b2133 100644
+--- a/dist/lib/time_duration.d.ts
++++ b/dist/lib/time_duration.d.ts
+@@ -1,4 +1,4 @@
+-import { AlgebraicType } from '../../src/lib/algebraic_type';
++import { AlgebraicType } from './algebraic_type';
+ export type TimeDurationAlgebraicType = {
+     tag: 'Product';
+     value: {
+diff --git a/dist/lib/timestamp.d.ts b/dist/lib/timestamp.d.ts
+index e2c03d0fa1199bf018657ca74cfc596f69a41e0c..1e4238e9b101360f4c4ee34a35055e52d23cdc54 100644
+--- a/dist/lib/timestamp.d.ts
++++ b/dist/lib/timestamp.d.ts
+@@ -1,5 +1,5 @@
+-import { AlgebraicType } from '../../src/lib/algebraic_type';
+-import { TimeDuration } from '../../src/lib/time_duration';
++import { AlgebraicType } from './algebraic_type';
++import { TimeDuration } from './time_duration';
+ export type TimestampAlgebraicType = {
+     tag: 'Product';
+     value: {
+diff --git a/dist/lib/type_builders.d.ts b/dist/lib/type_builders.d.ts
+index 64a7bc904fbd15e7f975452cf0f8a4969869fe00..3dc19b9af070ca141f9241a398d5a446c8196397 100644
+--- a/dist/lib/type_builders.d.ts
++++ b/dist/lib/type_builders.d.ts
+@@ -1,17 +1,17 @@
+-import { AlgebraicType, type AlgebraicTypeVariants } from '../../src/lib/algebraic_type';
+-import type BinaryReader from '../../src/lib/binary_reader';
+-import type BinaryWriter from '../../src/lib/binary_writer';
+-import { ConnectionId, type ConnectionIdAlgebraicType } from '../../src/lib/connection_id';
+-import { Identity, type IdentityAlgebraicType } from '../../src/lib/identity';
+-import { type OptionAlgebraicType } from '../../src/lib/option';
+-import { type ResultAlgebraicType } from '../../src/lib/result';
+-import ScheduleAt, { type ScheduleAtAlgebraicType } from '../../src/lib/schedule_at';
+-import type { CoerceRow } from '../../src/lib/table';
+-import { TimeDuration, type TimeDurationAlgebraicType } from '../../src/lib/time_duration';
+-import { Timestamp, type TimestampAlgebraicType } from '../../src/lib/timestamp';
+-import { type Prettify, type SetField } from '../../src/lib/type_util';
+-import { Uuid, type UuidAlgebraicType } from '../../src/lib/uuid';
+-export { type AlgebraicTypeType } from '../../src/lib/algebraic_type';
++import { AlgebraicType, type AlgebraicTypeVariants } from './algebraic_type';
++import type BinaryReader from './binary_reader';
++import type BinaryWriter from './binary_writer';
++import { ConnectionId, type ConnectionIdAlgebraicType } from './connection_id';
++import { Identity, type IdentityAlgebraicType } from './identity';
++import { type OptionAlgebraicType } from './option';
++import { type ResultAlgebraicType } from './result';
++import ScheduleAt, { type ScheduleAtAlgebraicType } from './schedule_at';
++import type { CoerceRow } from './table';
++import { TimeDuration, type TimeDurationAlgebraicType } from './time_duration';
++import { Timestamp, type TimestampAlgebraicType } from './timestamp';
++import { type Prettify, type SetField } from './type_util';
++import { Uuid, type UuidAlgebraicType } from './uuid';
++export { type AlgebraicTypeType } from './algebraic_type';
+ /**
+  * Helper type to extract the TypeScript type from a TypeBuilder
+  */
+diff --git a/dist/lib/type_util.d.ts b/dist/lib/type_util.d.ts
+index ec7a0d083b1ae78591697ecfb1c8a4910a9c95a7..d59ed795a002a85c4697d1018db57f4fd270651c 100644
+--- a/dist/lib/type_util.d.ts
++++ b/dist/lib/type_util.d.ts
+@@ -1,8 +1,8 @@
+-import type { ConnectionId } from '../../src/lib/connection_id';
+-import type { Identity } from '../../src/lib/identity';
+-import type { ScheduleAt } from '../../src/lib/schedule_at';
+-import type { TimeDuration } from '../../src/lib/time_duration';
+-import type { Timestamp } from '../../src/lib/timestamp';
++import type { ConnectionId } from './connection_id';
++import type { Identity } from './identity';
++import type { ScheduleAt } from './schedule_at';
++import type { TimeDuration } from './time_duration';
++import type { Timestamp } from './timestamp';
+ type DoNotPrettify = Identity | ConnectionId | Timestamp | TimeDuration | ScheduleAt;
+ /**
+  * Utility to make TS show cleaner types by flattening intersections.
+diff --git a/dist/lib/util.d.ts b/dist/lib/util.d.ts
+index 0b44713298ceb036ecb74a664252c04322ad02c2..3c9e94d9a1056069869cbd18f6dbc99e9d73282d 100644
+--- a/dist/lib/util.d.ts
++++ b/dist/lib/util.d.ts
+@@ -1,8 +1,8 @@
+-import type { AlgebraicType } from '../../src/lib/algebraic_type';
+-import type { Typespace } from '../../src/lib/autogen/types';
+-import type { ParamsObj } from '../../src/lib/reducers';
+-import type { ColumnBuilder, TypeBuilder } from '../../src/lib/type_builders';
+-import type { CamelCase, SnakeCase } from '../../src/lib/type_util';
++import type { AlgebraicType } from './algebraic_type';
++import type { Typespace } from './autogen/types';
++import type { ParamsObj } from './reducers';
++import type { ColumnBuilder, TypeBuilder } from './type_builders';
++import type { CamelCase, SnakeCase } from './type_util';
+ export declare function deepEqual(obj1: any, obj2: any): boolean;
+ export declare function uint8ArrayToHexString(array: Uint8Array): string;
+ export declare function uint8ArrayToU128(array: Uint8Array): bigint;
+diff --git a/dist/lib/uuid.d.ts b/dist/lib/uuid.d.ts
+index aa37c4f1b08ba856f8e8200c203143dfbc1b24e9..af8182112c823fc3e1dce7875aabdbfa5c9fbdb6 100644
+--- a/dist/lib/uuid.d.ts
++++ b/dist/lib/uuid.d.ts
+@@ -1,4 +1,4 @@
+-import { Timestamp } from '../../src/lib/timestamp';
++import { Timestamp } from './timestamp';
+ export type UuidAlgebraicType = {
+     tag: 'Product';
+     value: {
+diff --git a/dist/sdk/client_cache.d.ts b/dist/sdk/client_cache.d.ts
+index 9a91949a3fd38e1f521571d42ca29095b64562b1..ccf117f89d80bb2a51f94b62161058558c53427f 100644
+--- a/dist/sdk/client_cache.d.ts
++++ b/dist/sdk/client_cache.d.ts
+@@ -1,8 +1,8 @@
+-import type { TableNamesOf, UntypedSchemaDef } from '../../src/lib/schema.js';
+-import type { UntypedTableDef } from '../../src/lib/table.js';
+-import type { Values } from '../../src/lib/type_util.js';
+-import type { UntypedRemoteModule } from '../../src/sdk/spacetime_module.js';
+-import { type TableCache } from '../../src/sdk/table_cache.js';
++import type { TableNamesOf, UntypedSchemaDef } from '../lib/schema';
++import type { UntypedTableDef } from '../lib/table';
++import type { Values } from '../lib/type_util';
++import type { UntypedRemoteModule } from './spacetime_module';
++import { type TableCache } from './table_cache';
+ type TableName<SchemaDef> = [SchemaDef] extends [UntypedSchemaDef] ? TableNamesOf<SchemaDef> : string;
+ export type TableDefForTableName<SchemaDef extends UntypedSchemaDef, N extends TableName<SchemaDef>> = [SchemaDef] extends [UntypedSchemaDef] ? Values<SchemaDef['tables']> & {
+     accessorName: N;
+diff --git a/dist/sdk/client_table.d.ts b/dist/sdk/client_table.d.ts
+index 3d68de2bbdea80eeef5a4b3c5e1fb9408b294079..45eced693f9b39571b3e64840e0746e0037a3f45 100644
+--- a/dist/sdk/client_table.d.ts
++++ b/dist/sdk/client_table.d.ts
+@@ -1,11 +1,11 @@
+-import type { ReadonlyIndexes } from '../../src/lib/indexes';
+-import type { TableNamesOf } from '../../src/lib/schema';
+-import type { ReadonlyTableMethods, RowType, TableIndexes, UntypedTableDef } from '../../src/lib/table';
+-import type { ColumnBuilder } from '../../src/lib/type_builders';
+-import type { Prettify } from '../../src/lib/type_util';
+-import type { TableDefForTableName } from '../../src/sdk/client_cache';
+-import type { EventContextInterface } from '../../src/sdk/event_context';
+-import type { UntypedRemoteModule } from '../../src/sdk/spacetime_module';
++import type { ReadonlyIndexes } from '../lib/indexes';
++import type { TableNamesOf } from '../lib/schema';
++import type { ReadonlyTableMethods, RowType, TableIndexes, UntypedTableDef } from '../lib/table';
++import type { ColumnBuilder } from '../lib/type_builders';
++import type { Prettify } from '../lib/type_util';
++import type { TableDefForTableName } from './client_cache';
++import type { EventContextInterface } from './event_context';
++import type { UntypedRemoteModule } from './spacetime_module';
+ export type ClientTablePrimaryKeyMethods<RemoteModule extends UntypedRemoteModule, TableName extends TableNamesOf<RemoteModule>> = {
+     /**
+      * Registers a callback to be invoked when a row is updated in the table.
+diff --git a/dist/sdk/db_connection_builder.d.ts b/dist/sdk/db_connection_builder.d.ts
+index 81ddb8fa90f2261e2a150c985313f6f851539065..c6f5ca94c84ea0fcc19c42503056eed5f2e5064d 100644
+--- a/dist/sdk/db_connection_builder.d.ts
++++ b/dist/sdk/db_connection_builder.d.ts
+@@ -1,6 +1,6 @@
+-import { DbConnectionImpl } from '../../src/sdk/db_connection_impl';
+-import type { DbConnectionConfig, ErrorContextInterface, Identity, RemoteModuleOf } from '../../src';
+-import { WebsocketDecompressAdapter } from '../../src/sdk/websocket_decompress_adapter';
++import { DbConnectionImpl } from './db_connection_impl';
++import type { DbConnectionConfig, ErrorContextInterface, Identity, RemoteModuleOf } from '../';
++import { WebsocketDecompressAdapter } from './websocket_decompress_adapter';
+ /**
+  * The database client connection to a SpacetimeDB server.
+  * NOTE: DbConnectionImpl<any> is used here because UntypedRemoteModule causes
+diff --git a/dist/sdk/db_connection_impl.d.ts b/dist/sdk/db_connection_impl.d.ts
+index b471e28e1f96334d0dcb2d5277bfdc0b9df74223..b19c92f5ab17c402d0ab5f6e362796fc7432c1f8 100644
+--- a/dist/sdk/db_connection_impl.d.ts
++++ b/dist/sdk/db_connection_impl.d.ts
+@@ -1,20 +1,20 @@
+-import { ConnectionId, ProductType } from '../../src';
+-import { AlgebraicType } from '../../src';
+-import { DbConnectionBuilder } from '../../src/sdk/db_connection_builder';
+-import { INTERNAL_REMOTE_MODULE } from '../../src/sdk/internal';
+-import { type DbContext } from '../../src/sdk/db_context';
+-import type { Event } from '../../src/sdk/event';
+-import { type ErrorContextInterface, type EventContextInterface, type ReducerEventContextInterface, type SubscriptionEventContextInterface } from '../../src/sdk/event_context';
+-import { EventEmitter } from '../../src/sdk/event_emitter';
+-import type { Identity } from '../../src';
+-import type { ReducerEvent } from '../../src/sdk/reducer_event';
+-import { type UntypedRemoteModule } from '../../src/sdk/spacetime_module';
+-import { type TableCache } from '../../src/sdk/table_cache';
+-import { WebsocketDecompressAdapter } from '../../src/sdk/websocket_decompress_adapter';
+-import { SubscriptionBuilderImpl, SubscriptionHandleImpl, type SubscribeEvent } from '../../src/sdk/subscription_builder_impl';
+-import type { ReducersView, SubscriptionEventCallback } from '../../src/sdk/reducers';
+-import type { ClientDbView } from '../../src/sdk/db_view';
+-import type { ProceduresView } from '../../src/sdk/procedures';
++import { ConnectionId, ProductType } from '../';
++import { AlgebraicType } from '../';
++import { DbConnectionBuilder } from './db_connection_builder';
++import { INTERNAL_REMOTE_MODULE } from './internal';
++import { type DbContext } from './db_context';
++import type { Event } from './event';
++import { type ErrorContextInterface, type EventContextInterface, type ReducerEventContextInterface, type SubscriptionEventContextInterface } from './event_context';
++import { EventEmitter } from './event_emitter';
++import type { Identity } from '../';
++import type { ReducerEvent } from './reducer_event';
++import { type UntypedRemoteModule } from './spacetime_module';
++import { type TableCache } from './table_cache';
++import { WebsocketDecompressAdapter } from './websocket_decompress_adapter';
++import { SubscriptionBuilderImpl, SubscriptionHandleImpl, type SubscribeEvent } from './subscription_builder_impl';
++import type { ReducersView, SubscriptionEventCallback } from './reducers';
++import type { ClientDbView } from './db_view';
++import type { ProceduresView } from './procedures';
+ export { DbConnectionBuilder, SubscriptionBuilderImpl, SubscriptionHandleImpl, type TableCache, type Event, };
+ export type RemoteModuleOf<C> = C extends DbConnectionImpl<infer RM> ? RM : never;
+ export type { DbContext, EventContextInterface, ReducerEventContextInterface, SubscriptionEventContextInterface, ErrorContextInterface, ReducerEvent, };
+diff --git a/dist/sdk/db_context.d.ts b/dist/sdk/db_context.d.ts
+index 2f7d6315fecc2914601e005926cc1fa5a52d8f6a..6cca846ee21bcec25b2dc316552912db90b378f2 100644
+--- a/dist/sdk/db_context.d.ts
++++ b/dist/sdk/db_context.d.ts
+@@ -1,7 +1,7 @@
+-import type { ClientDbView } from '../../src/sdk/db_view';
+-import type { ReducersView } from '../../src/sdk/reducers';
+-import type { UntypedRemoteModule } from '../../src/sdk/spacetime_module';
+-import type { SubscriptionBuilderImpl } from '../../src/sdk/subscription_builder_impl';
++import type { ClientDbView } from './db_view';
++import type { ReducersView } from './reducers';
++import type { UntypedRemoteModule } from './spacetime_module';
++import type { SubscriptionBuilderImpl } from './subscription_builder_impl';
+ /**
+  * Interface representing a database context.
+  *
+diff --git a/dist/sdk/db_view.d.ts b/dist/sdk/db_view.d.ts
+index 6bdd98a85e9a7220ecb78d0e94736f7734f820a0..9fc1e2487ff38e7b60ef523bc1a79eaaec64f595 100644
+--- a/dist/sdk/db_view.d.ts
++++ b/dist/sdk/db_view.d.ts
+@@ -1,6 +1,6 @@
+-import type { UntypedRemoteModule } from '../../src/sdk/spacetime_module';
+-import type { ClientTable } from '../../src/sdk/client_table';
+-import type { Values } from '../../src/lib/type_util';
++import type { UntypedRemoteModule } from './spacetime_module';
++import type { ClientTable } from './client_table';
++import type { Values } from '../lib/type_util';
+ /**
+  * A type representing a client-side database view, mapping table names to their corresponding client Table handles.
+  */
+diff --git a/dist/sdk/event.d.ts b/dist/sdk/event.d.ts
+index ea2c8820f026a11050258d05c4a88b8c7e60662e..4db931634478443e4844dc3f196af5c5e3b60250 100644
+--- a/dist/sdk/event.d.ts
++++ b/dist/sdk/event.d.ts
+@@ -1,5 +1,5 @@
+-import type { ReducerEvent } from '../../src/sdk/reducer_event';
+-import type { ReducerEventInfo } from '../../src/sdk/reducers';
++import type { ReducerEvent } from './reducer_event';
++import type { ReducerEventInfo } from './reducers';
+ type WithId = {
+     /**
+      * A client-generated id to distinguish between different events.
+diff --git a/dist/sdk/event_context.d.ts b/dist/sdk/event_context.d.ts
+index d0af77b2ec8f6d9b70b80c2a0bd776c5410bb37a..7c67606739ea79c815093a63cea9af2712bc653f 100644
+--- a/dist/sdk/event_context.d.ts
++++ b/dist/sdk/event_context.d.ts
+@@ -1,9 +1,9 @@
+-import type { InferTypeOfRow } from '../../src/lib/type_builders.js';
+-import type { DbContext } from '../../src/sdk/db_context.js';
+-import type { Event } from '../../src/sdk/event.js';
+-import type { ReducerEvent } from '../../src/sdk/reducer_event.js';
+-import type { ReducerEventInfo } from '../../src/sdk/reducers.js';
+-import type { UntypedRemoteModule } from '../../src/sdk/spacetime_module.js';
++import type { InferTypeOfRow } from '../lib/type_builders';
++import type { DbContext } from './db_context';
++import type { Event } from './event';
++import type { ReducerEvent } from './reducer_event';
++import type { ReducerEventInfo } from './reducers';
++import type { UntypedRemoteModule } from './spacetime_module';
+ export type UntypedEventContext = EventContextInterface<UntypedRemoteModule>;
+ export interface EventContextInterface<RemoteModule extends UntypedRemoteModule> extends DbContext<RemoteModule> {
+     /** Enum with variants for all possible events. */
+diff --git a/dist/sdk/index.d.ts b/dist/sdk/index.d.ts
+index 6b97559f25eeb52ed2d187a631b5e6512eec73d0..83b851dbb82ec489d43ab5224e321e703c456b5f 100644
+--- a/dist/sdk/index.d.ts
++++ b/dist/sdk/index.d.ts
+@@ -1,14 +1,14 @@
+-export * from '../../src/sdk/db_connection_impl.js';
+-export * from '../../src/sdk/client_cache.js';
+-export * from '../../src/sdk/message_types.js';
+-export * from '../../src/lib/errors.js';
+-export * from '../../src/sdk/logger.js';
+-export { type ClientTable } from '../../src/sdk/client_table.js';
+-export { type RemoteModule } from '../../src/sdk/spacetime_module.js';
+-export * from '../../src/lib/type_builders.js';
+-export { schema, convertToAccessorMap } from '../../src/sdk/schema.js';
+-export { table } from '../../src/lib/table.js';
+-export { reducerSchema, reducers } from '../../src/sdk/reducers.js';
+-export { procedureSchema, procedures } from '../../src/sdk/procedures.js';
+-export * from '../../src/sdk/type_utils.js';
++export * from './db_connection_impl';
++export * from './client_cache';
++export * from './message_types';
++export * from '../lib/errors';
++export * from './logger';
++export { type ClientTable } from './client_table';
++export { type RemoteModule } from './spacetime_module';
++export * from '../lib/type_builders';
++export { schema, convertToAccessorMap } from './schema';
++export { table } from '../lib/table';
++export { reducerSchema, reducers } from './reducers';
++export { procedureSchema, procedures } from './procedures';
++export * from './type_utils';
+ //# sourceMappingURL=index.d.ts.map
+diff --git a/dist/sdk/message_types.d.ts b/dist/sdk/message_types.d.ts
+index 859b82db4c92600d05c957f564746499593cfdb5..9332451d2d97495f89df37897fd173abac15ec14 100644
+--- a/dist/sdk/message_types.d.ts
++++ b/dist/sdk/message_types.d.ts
+@@ -1,6 +1,6 @@
+-import type { TableUpdate } from '../../src/sdk/table_cache.js';
+-import type { UntypedTableDef } from '../../src/lib/table.js';
+-import type { ReducerOutcome } from '../../src/sdk/client_api/types.js';
++import type { TableUpdate } from './table_cache';
++import type { UntypedTableDef } from '../lib/table';
++import type { ReducerOutcome } from './client_api/types';
+ export type TransactionUpdateMessage = {
+     tag: 'TransactionUpdate';
+     tableUpdates: TableUpdate<UntypedTableDef>[];
+diff --git a/dist/sdk/procedures.d.ts b/dist/sdk/procedures.d.ts
+index aba1fe1f081bed9e4c131efedf06893c85f80415..dd79a38a57b64d5144bcb63588c4d87dabe64f7a 100644
+--- a/dist/sdk/procedures.d.ts
++++ b/dist/sdk/procedures.d.ts
+@@ -1,8 +1,8 @@
+-import type { ParamsObj } from '../../src/lib/reducers';
+-import type { Infer, InferTypeOfRow, TypeBuilder } from '../../src/lib/type_builders';
+-import type { CamelCase } from '../../src/lib/type_util';
+-import { type CoerceParams } from '../../src/lib/util';
+-import type { UntypedRemoteModule } from '../../src/sdk/spacetime_module';
++import type { ParamsObj } from '../lib/reducers';
++import type { Infer, InferTypeOfRow, TypeBuilder } from '../lib/type_builders';
++import type { CamelCase } from '../lib/type_util';
++import { type CoerceParams } from '../lib/util';
++import type { UntypedRemoteModule } from './spacetime_module';
+ type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
+ type ProceduresViewLoose = {
+     [k: string]: (params: any) => Promise<any>;
+diff --git a/dist/sdk/reducer_event.d.ts b/dist/sdk/reducer_event.d.ts
+index 1fa760128006c1cbe931ef4987c0b32ca8d3ca42..b6627de0b16582b83e6b75b1bf79351840185f36 100644
+--- a/dist/sdk/reducer_event.d.ts
++++ b/dist/sdk/reducer_event.d.ts
+@@ -1,6 +1,6 @@
+-import { Timestamp } from '../../src';
+-import type { ReducerOutcome } from '../../src/sdk/client_api/types';
+-import type { ReducerEventInfo } from '../../src/sdk/reducers';
++import { Timestamp } from '../';
++import type { ReducerOutcome } from './client_api/types';
++import type { ReducerEventInfo } from './reducers';
+ export type ReducerEvent<Reducer extends ReducerEventInfo> = {
+     /**
+      * The time when the reducer started running.
+diff --git a/dist/sdk/reducers.d.ts b/dist/sdk/reducers.d.ts
+index 6ac042f4a908c7f8dea0c2303d99f4261de4027a..78a5fdf83dcc6f9cc8b69b9fceea2ef39d92f634 100644
+--- a/dist/sdk/reducers.d.ts
++++ b/dist/sdk/reducers.d.ts
+@@ -1,10 +1,10 @@
+-import type { ProductType } from '../../src/lib/algebraic_type';
+-import type { ReducerSchema } from '../../src/lib/reducer_schema';
+-import type { ParamsObj } from '../../src/lib/reducers';
+-import type { CoerceRow } from '../../src/lib/table';
+-import { type InferTypeOfRow } from '../../src/lib/type_builders';
+-import type { SubscriptionEventContextInterface } from '../../src/sdk/event_context';
+-import type { UntypedRemoteModule } from '../../src/sdk/spacetime_module';
++import type { ProductType } from '../lib/algebraic_type';
++import type { ReducerSchema } from '../lib/reducer_schema';
++import type { ParamsObj } from '../lib/reducers';
++import type { CoerceRow } from '../lib/table';
++import { type InferTypeOfRow } from '../lib/type_builders';
++import type { SubscriptionEventContextInterface } from './event_context';
++import type { UntypedRemoteModule } from './spacetime_module';
+ export type SubscriptionEventCallback<RemoteModule extends UntypedRemoteModule> = (ctx: SubscriptionEventContextInterface<RemoteModule>) => void;
+ type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
+ type ReducersViewLoose = {
+diff --git a/dist/sdk/schema.d.ts b/dist/sdk/schema.d.ts
+index 1c87e5b6d4eeed423ad07e36f3268b04cd0b43a1..b7d4ecf9fbbc7146882d8f5d6e02c5fd3486bd81 100644
+--- a/dist/sdk/schema.d.ts
++++ b/dist/sdk/schema.d.ts
+@@ -1,5 +1,5 @@
+-import { type TablesToSchema, type UntypedSchemaDef } from '../../src/lib/schema';
+-import type { UntypedTableSchema } from '../../src/lib/table_schema';
++import { type TablesToSchema, type UntypedSchemaDef } from '../lib/schema';
++import type { UntypedTableSchema } from '../lib/table_schema';
+ declare class Tables<S extends UntypedSchemaDef> {
+     readonly schemaType: S;
+     constructor(schemaType: S);
+diff --git a/dist/sdk/spacetime_module.d.ts b/dist/sdk/spacetime_module.d.ts
+index c629afbdb17768832cf77afccb0a104976ccc983..36fb0a9d9dfe883086fdbb938e4ba60b34d68a3b 100644
+--- a/dist/sdk/spacetime_module.d.ts
++++ b/dist/sdk/spacetime_module.d.ts
+@@ -1,6 +1,6 @@
+-import type { UntypedProceduresDef } from '../../src/sdk/procedures';
+-import type { UntypedSchemaDef } from '../../src/lib/schema';
+-import type { UntypedReducersDef } from '../../src/sdk/reducers';
++import type { UntypedProceduresDef } from './procedures';
++import type { UntypedSchemaDef } from '../lib/schema';
++import type { UntypedReducersDef } from './reducers';
+ export type RemoteModule<SchemaDef extends UntypedSchemaDef, ReducersDef extends UntypedReducersDef, ProceduresDef extends UntypedProceduresDef, CLI extends string = string> = SchemaDef & ReducersDef & ProceduresDef & {
+     versionInfo: {
+         cliVersion: CLI;
+diff --git a/dist/sdk/subscription_builder_impl.d.ts b/dist/sdk/subscription_builder_impl.d.ts
+index 1f9a0537407572226295fbc25b50f2daaeb565f7..54cc1ca24880694a20adb581d420cf306b2ed454 100644
+--- a/dist/sdk/subscription_builder_impl.d.ts
++++ b/dist/sdk/subscription_builder_impl.d.ts
+@@ -1,9 +1,9 @@
+-import type { DbConnectionImpl } from '../../src/sdk/db_connection_impl';
+-import type { ErrorContextInterface, SubscriptionEventContextInterface } from '../../src/sdk/event_context';
+-import { EventEmitter } from '../../src/sdk/event_emitter';
+-import type { UntypedRemoteModule } from '../../src/sdk/spacetime_module';
+-import { type RowTypedQuery } from '../../src/lib/query';
+-import type { Values } from '../../src/lib/type_util';
++import type { DbConnectionImpl } from './db_connection_impl';
++import type { ErrorContextInterface, SubscriptionEventContextInterface } from './event_context';
++import { EventEmitter } from './event_emitter';
++import type { UntypedRemoteModule } from './spacetime_module';
++import { type RowTypedQuery } from '../lib/query';
++import type { Values } from '../lib/type_util';
+ export declare class SubscriptionBuilderImpl<RemoteModule extends UntypedRemoteModule> {
+     #private;
+     private db;
+diff --git a/dist/sdk/table_cache.d.ts b/dist/sdk/table_cache.d.ts
+index 69e57aef96bd5eb84a2c38a972fbddb91be31e88..338c0d0437e862f05c671e4d3e06284b9b018ef6 100644
+--- a/dist/sdk/table_cache.d.ts
++++ b/dist/sdk/table_cache.d.ts
+@@ -1,11 +1,11 @@
+-import { type ComparablePrimitive } from '../../src';
+-import type { EventContextInterface, TableDefForTableName } from '../../src/sdk';
+-import type { RowType, TableIndexes, UntypedTableDef } from '../../src/lib/table';
+-import type { ClientTableCoreImplementable } from '../../src/sdk/client_table';
+-import type { UntypedRemoteModule } from '../../src/sdk/spacetime_module';
+-import type { TableNamesOf } from '../../src/lib/schema';
+-import type { ReadonlyIndexes } from '../../src/lib/indexes';
+-import type { Prettify } from '../../src/lib/type_util';
++import { type ComparablePrimitive } from '../';
++import type { EventContextInterface, TableDefForTableName } from './';
++import type { RowType, TableIndexes, UntypedTableDef } from '../lib/table';
++import type { ClientTableCoreImplementable } from './client_table';
++import type { UntypedRemoteModule } from './spacetime_module';
++import type { TableNamesOf } from '../lib/schema';
++import type { ReadonlyIndexes } from '../lib/indexes';
++import type { Prettify } from '../lib/type_util';
+ export type Operation<RowType extends Record<string, any> = Record<string, any>> = {
+     type: 'insert' | 'delete';
+     rowId: ComparablePrimitive;
+diff --git a/dist/sdk/type_utils.d.ts b/dist/sdk/type_utils.d.ts
+index 89eb85b3f8d0de6c3fdfd79cb51ad07e683d835a..97ec130e45c42d34e1c4089eb679eccf708129ef 100644
+--- a/dist/sdk/type_utils.d.ts
++++ b/dist/sdk/type_utils.d.ts
+@@ -1,6 +1,6 @@
+-import type { InferTypeOfRow } from '../../src/sdk';
+-import type { Prettify } from '../../src/lib/type_util';
+-import type { UntypedReducerDef } from '../../src/sdk/reducers';
++import type { InferTypeOfRow } from './';
++import type { Prettify } from '../lib/type_util';
++import type { UntypedReducerDef } from './reducers';
+ export type IsEmptyObject<T> = [keyof T] extends [never] ? true : false;
+ export type MaybeParams<T> = IsEmptyObject<T> extends true ? [] : [params: T];
+ export type ParamsType<R extends UntypedReducerDef> = MaybeParams<Prettify<InferTypeOfRow<R['params']>>>;
+diff --git a/dist/server/db_view.d.ts b/dist/server/db_view.d.ts
+index dc44cb188fca7a8b66e369f7dbfa389dd14823c5..643339535b1d93eb681d5134cbd1c965ad8f7d1d 100644
+--- a/dist/server/db_view.d.ts
++++ b/dist/server/db_view.d.ts
+@@ -1,6 +1,6 @@
+-import type { UntypedSchemaDef } from '../../src/lib/schema';
+-import type { ReadonlyTable, Table } from '../../src/lib/table';
+-import type { Values } from '../../src/lib/type_util';
++import type { UntypedSchemaDef } from '../lib/schema';
++import type { ReadonlyTable, Table } from '../lib/table';
++import type { Values } from '../lib/type_util';
+ /**
+  * A type representing a read-only database view, mapping table names to their corresponding read-only Table handles.
+  */
+diff --git a/dist/server/errors.d.ts b/dist/server/errors.d.ts
+index e7cbe59d2b4c1ccbf78a36d729c306b3d6623fb7..fa8ec5d923c686c37f56701298ff902a18fdd41c 100644
+--- a/dist/server/errors.d.ts
++++ b/dist/server/errors.d.ts
+@@ -1,4 +1,4 @@
+-import { SenderError } from '../../src/lib/errors';
++import { SenderError } from '../lib/errors';
+ /**
+  * Base class for all Spacetime host errors (i.e. errors that may be thrown
+  * by database functions).
+diff --git a/dist/server/http_internal.d.ts b/dist/server/http_internal.d.ts
+index e3fa1e31eaa3573998f08571ebd6c7289839e3e5..effe2d33a657dfa0c89bec31dea646a2f1b810f0 100644
+--- a/dist/server/http_internal.d.ts
++++ b/dist/server/http_internal.d.ts
+@@ -1,5 +1,5 @@
+ import { Headers } from 'headers-polyfill';
+-import type { TimeDuration } from '../../src/lib/time_duration';
++import type { TimeDuration } from '../lib/time_duration';
+ export { Headers };
+ export type BodyInit = ArrayBuffer | ArrayBufferView | string;
+ export type HeadersInit = [string, string][] | Record<string, string> | Headers;
+diff --git a/dist/server/index.d.ts b/dist/server/index.d.ts
+index a0aea1f1424fd8ffb3f767a0ac5066adf8a3abaa..31fedd538e9455d9249f40f8458cc2ce5e6abe66 100644
+--- a/dist/server/index.d.ts
++++ b/dist/server/index.d.ts
+@@ -1,16 +1,16 @@
+-export * from '../../src/lib/type_builders';
+-export { schema, type InferSchema, type ModuleExport, type ModuleSettings, } from '../../src/server/schema';
+-export { CaseConversionPolicy } from '../../src/lib/autogen/types';
+-export { table } from '../../src/lib/table';
+-export { SenderError, SpacetimeHostError, errors } from '../../src/server/errors';
+-export type { Reducer, ReducerCtx } from '../../src/lib/reducers';
+-export type { ReducerExport } from '../../src/server/reducers';
+-export { type DbView } from '../../src/server/db_view';
+-export * from '../../src/server/query';
+-export type { ProcedureCtx, TransactionCtx, ProcedureExport, } from '../../src/server/procedures';
+-export { toCamelCase } from '../../src/lib/util';
+-export type { Uuid } from '../../src/lib/uuid';
+-export type { Random } from '../../src/server/rng';
+-export type { ViewExport, ViewCtx, AnonymousViewCtx } from '../../src/server/views';
+-import '../../src/server/polyfills';
++export * from '../lib/type_builders';
++export { schema, type InferSchema, type ModuleExport, type ModuleSettings, } from './schema';
++export { CaseConversionPolicy } from '../lib/autogen/types';
++export { table } from '../lib/table';
++export { SenderError, SpacetimeHostError, errors } from './errors';
++export type { Reducer, ReducerCtx } from '../lib/reducers';
++export type { ReducerExport } from './reducers';
++export { type DbView } from './db_view';
++export * from './query';
++export type { ProcedureCtx, TransactionCtx, ProcedureExport, } from './procedures';
++export { toCamelCase } from '../lib/util';
++export type { Uuid } from '../lib/uuid';
++export type { Random } from './rng';
++export type { ViewExport, ViewCtx, AnonymousViewCtx } from './views';
++import './polyfills';
+ //# sourceMappingURL=index.d.ts.map
+\ No newline at end of file
+diff --git a/dist/server/procedures.d.ts b/dist/server/procedures.d.ts
+index fcb226f3bfaace399139d42e1bcd4cd9d17aa264..48cf6dfba82537919daa828dcea409b5435105a9 100644
+--- a/dist/server/procedures.d.ts
++++ b/dist/server/procedures.d.ts
+@@ -1,15 +1,15 @@
+-import { type Deserializer, type Serializer } from '../../src/lib/algebraic_type';
+-import type { ConnectionId } from '../../src/lib/connection_id';
+-import { Identity } from '../../src/lib/identity';
+-import type { ParamsObj, ReducerCtx } from '../../src/lib/reducers';
+-import { type UntypedSchemaDef } from '../../src/lib/schema';
+-import { Timestamp } from '../../src/lib/timestamp';
+-import { type Infer, type InferTypeOfRow, type TypeBuilder } from '../../src/lib/type_builders';
+-import { Uuid } from '../../src/lib/uuid';
+-import { type HttpClient } from '../../src/server/http_internal';
+-import type { DbView } from '../../src/server/db_view';
+-import { type Random } from '../../src/server/rng';
+-import { type ModuleExport, type SchemaInner } from '../../src/server/schema';
++import { type Deserializer, type Serializer } from '../lib/algebraic_type';
++import type { ConnectionId } from '../lib/connection_id';
++import { Identity } from '../lib/identity';
++import type { ParamsObj, ReducerCtx } from '../lib/reducers';
++import { type UntypedSchemaDef } from '../lib/schema';
++import { Timestamp } from '../lib/timestamp';
++import { type Infer, type InferTypeOfRow, type TypeBuilder } from '../lib/type_builders';
++import { Uuid } from '../lib/uuid';
++import { type HttpClient } from './http_internal';
++import type { DbView } from './db_view';
++import { type Random } from './rng';
++import { type ModuleExport, type SchemaInner } from './schema';
+ export type ProcedureExport<S extends UntypedSchemaDef, Params extends ParamsObj, Ret extends TypeBuilder<any, any>> = ProcedureFn<S, Params, Ret> & ModuleExport;
+ export declare function makeProcedureExport<S extends UntypedSchemaDef, Params extends ParamsObj, Ret extends TypeBuilder<any, any>>(ctx: SchemaInner, opts: ProcedureOpts | undefined, params: Params, ret: Ret, fn: ProcedureFn<S, Params, Ret>): ProcedureExport<S, Params, Ret>;
+ export type ProcedureFn<S extends UntypedSchemaDef, Params extends ParamsObj, Ret extends TypeBuilder<any, any>> = (ctx: ProcedureCtx<S>, args: InferTypeOfRow<Params>) => Infer<Ret>;
+diff --git a/dist/server/query.d.ts b/dist/server/query.d.ts
+index ddf9aacb8b62896a81abdede51ed7142335a71fb..95174b81a46c7f30e641ff47af86cedbc24891b9 100644
+--- a/dist/server/query.d.ts
++++ b/dist/server/query.d.ts
+@@ -1,2 +1,2 @@
+-export * from '../../src/lib/query';
++export * from '../lib/query';
+ //# sourceMappingURL=query.d.ts.map
+\ No newline at end of file
+diff --git a/dist/server/reducers.d.ts b/dist/server/reducers.d.ts
+index 437646a094b7cece5ec4d39fbcf5ed69fb046b41..777d98f271715d0d79080ebbcb913b4c1edb3300 100644
+--- a/dist/server/reducers.d.ts
++++ b/dist/server/reducers.d.ts
+@@ -1,8 +1,8 @@
+-import { type Lifecycle } from '../../src/lib/autogen/types';
+-import type { ParamsObj, Reducer } from '../../src/lib/reducers';
+-import { type UntypedSchemaDef } from '../../src/lib/schema';
+-import { RowBuilder, type RowObj } from '../../src/lib/type_builders';
+-import { type ModuleExport, type SchemaInner } from '../../src/server/schema';
++import { type Lifecycle } from '../lib/autogen/types';
++import type { ParamsObj, Reducer } from '../lib/reducers';
++import { type UntypedSchemaDef } from '../lib/schema';
++import { RowBuilder, type RowObj } from '../lib/type_builders';
++import { type ModuleExport, type SchemaInner } from './schema';
+ export interface ReducerExport<S extends UntypedSchemaDef, Params extends ParamsObj> extends Reducer<S, Params>, ModuleExport {
+ }
+ export interface ReducerOpts {
+diff --git a/dist/server/rng.d.ts b/dist/server/rng.d.ts
+index 7b6654196712e111ef5da3a19571d680448c3b13..e9fc63a9b3b0fd0c628b799400b77c423a88db76 100644
+--- a/dist/server/rng.d.ts
++++ b/dist/server/rng.d.ts
+@@ -1,4 +1,4 @@
+-import type { Timestamp } from '../../src/lib/timestamp';
++import type { Timestamp } from '../lib/timestamp';
+ type IntArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | BigInt64Array | BigUint64Array;
+ /**
+  * A collection of random-number-generating functions, seeded based on `ctx.timestamp`.
+diff --git a/dist/server/schema.d.ts b/dist/server/schema.d.ts
+index 039de473019e160e85446b415ae8656450bb0402..3118305753142d08146b194208b19f086674f927 100644
+--- a/dist/server/schema.d.ts
++++ b/dist/server/schema.d.ts
+@@ -1,12 +1,12 @@
+ import { moduleHooks, type ModuleDefaultExport } from 'spacetime:sys@2.0';
+-import { CaseConversionPolicy } from '../../src/lib/autogen/types';
+-import { type ParamsObj, type Reducer } from '../../src/lib/reducers';
+-import { ModuleContext, type TablesToSchema, type UntypedSchemaDef } from '../../src/lib/schema';
+-import type { UntypedTableSchema } from '../../src/lib/table_schema';
+-import { TypeBuilder } from '../../src/lib/type_builders';
+-import { type ProcedureExport, type ProcedureFn, type ProcedureOpts, type Procedures } from '../../src/server/procedures';
+-import { type ReducerExport, type ReducerOpts, type Reducers } from '../../src/server/reducers';
+-import { type AnonViews, type AnonymousViewFn, type ViewExport, type ViewFn, type ViewOpts, type ViewReturnTypeBuilder, type Views } from '../../src/server/views';
++import { CaseConversionPolicy } from '../lib/autogen/types';
++import { type ParamsObj, type Reducer } from '../lib/reducers';
++import { ModuleContext, type TablesToSchema, type UntypedSchemaDef } from '../lib/schema';
++import type { UntypedTableSchema } from '../lib/table_schema';
++import { TypeBuilder } from '../lib/type_builders';
++import { type ProcedureExport, type ProcedureFn, type ProcedureOpts, type Procedures } from './procedures';
++import { type ReducerExport, type ReducerOpts, type Reducers } from './reducers';
++import { type AnonViews, type AnonymousViewFn, type ViewExport, type ViewFn, type ViewOpts, type ViewReturnTypeBuilder, type Views } from './views';
+ export declare class SchemaInner<S extends UntypedSchemaDef = UntypedSchemaDef> extends ModuleContext {
+     schemaType: S;
+     existingFunctions: Set<string>;
+@@ -63,20 +63,20 @@ export declare class Schema<S extends UntypedSchemaDef> implements ModuleDefault
+     constructor(ctx: SchemaInner<S>);
+     [moduleHooks](exports: object): import("spacetime:sys@2.0").ModuleHooks;
+     get schemaType(): S;
+-    get moduleDef(): import("../../src/lib/schema").ModuleDef;
++    get moduleDef(): import("../lib/schema").ModuleDef;
+     get typespace(): {
+         readonly types: ({
+             tag: "Ref";
+             value: number;
+         } | {
+             tag: "Sum";
+-            value: import("../../src").SumTypeType;
++            value: import("../").SumTypeType;
+         } | {
+             tag: "Product";
+-            value: import("../../src").ProductTypeType;
++            value: import("../").ProductTypeType;
+         } | {
+             tag: "Array";
+-            value: import("../../src/server").AlgebraicTypeType;
++            value: import("./").AlgebraicTypeType;
+         } | {
+             tag: "String";
+         } | {
+diff --git a/dist/server/views.d.ts b/dist/server/views.d.ts
+index 5377a4cac896466f7ed3fd1920ced063e55b0e28..570089578372000fd8fe8fe22919525a335d8173 100644
+--- a/dist/server/views.d.ts
++++ b/dist/server/views.d.ts
+@@ -1,12 +1,12 @@
+-import { type AlgebraicTypeVariants, type Deserializer, type Serializer } from '../../src/lib/algebraic_type';
+-import type { Identity } from '../../src/lib/identity';
+-import type { OptionAlgebraicType } from '../../src/lib/option';
+-import type { ParamsObj } from '../../src/lib/reducers';
+-import { type UntypedSchemaDef } from '../../src/lib/schema';
+-import { type Infer, type InferSpacetimeTypeOfTypeBuilder, type InferTypeOfRow, type TypeBuilder } from '../../src/lib/type_builders';
+-import type { ReadonlyDbView } from '../../src/server/db_view';
+-import { type QueryBuilder, type RowTypedQuery } from '../../src/server/query';
+-import { type ModuleExport, type SchemaInner } from '../../src/server/schema';
++import { type AlgebraicTypeVariants, type Deserializer, type Serializer } from '../lib/algebraic_type';
++import type { Identity } from '../lib/identity';
++import type { OptionAlgebraicType } from '../lib/option';
++import type { ParamsObj } from '../lib/reducers';
++import { type UntypedSchemaDef } from '../lib/schema';
++import { type Infer, type InferSpacetimeTypeOfTypeBuilder, type InferTypeOfRow, type TypeBuilder } from '../lib/type_builders';
++import type { ReadonlyDbView } from './db_view';
++import { type QueryBuilder, type RowTypedQuery } from './query';
++import { type ModuleExport, type SchemaInner } from './schema';
+ export type ViewExport<ViewFn> = ViewFn & ModuleExport;
+ export declare function makeViewExport<S extends UntypedSchemaDef, Params extends ParamsObj, Ret extends ViewReturnTypeBuilder, F extends ViewFn<S, Params, Ret>>(ctx: SchemaInner, opts: ViewOpts, params: Params, ret: Ret, fn: F): ViewExport<F>;
+ export declare function makeAnonViewExport<S extends UntypedSchemaDef, Params extends ParamsObj, Ret extends ViewReturnTypeBuilder, F extends AnonymousViewFn<S, Params, Ret>>(ctx: SchemaInner, opts: ViewOpts, params: Params, ret: Ret, fn: F): ViewExport<F>;

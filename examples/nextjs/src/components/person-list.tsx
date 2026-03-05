@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { tables, reducers } from '@shared/module_bindings'
-import type { Person } from '@shared/module_bindings/types'
+import { tables, reducers } from '@lunarhue/stdb-helpers-db/module_bindings'
+import type { Person } from '@lunarhue/stdb-helpers-db/module_bindings/types'
 import { useQuery } from '@lunarhue/stdb-helpers/tanstack/use-query'
 import { useMutation } from '@lunarhue/stdb-helpers/tanstack/use-mutation'
 import { useQueryClient } from '@tanstack/react-query'
