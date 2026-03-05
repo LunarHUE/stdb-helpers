@@ -1,14 +1,44 @@
 {
   "name": "@lunarhue/stdb-helpers",
   "version": "0.0.1",
-  "scripts": {},
-  "dependencies": {
-    "@tanstack/react-query": "^5.90.21",
-    "react": "^19.2.4",
-    "spacetimedb": "^2.0.3"
+  "description": "Helpers for building React apps with SpacetimeDB — like convex-helpers but for SpacetimeDB",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./tanstack": {
+      "types": "./dist/tanstack/index.d.ts",
+      "import": "./dist/tanstack/index.js",
+      "require": "./dist/tanstack/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "bun run build"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5",
+    "react": "^18 || ^19",
+    "spacetimedb": "^2"
   },
   "devDependencies": {
     "@types/react": "^19.2.14",
+    "tsup": "^8.5.1",
     "turbo": "^2.8.13",
     "typescript": "^5.9.3"
   },

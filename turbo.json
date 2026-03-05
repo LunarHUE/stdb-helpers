@@ -7,7 +7,7 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["examples/**/*.tsx"]
+      "outputs": ["dist/**"]
     },
     "generate": {
       "dependsOn": ["^generate"],
