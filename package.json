@@ -1,6 +1,6 @@
 {
   "name": "@lunarhue/stdb-helpers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Helpers for building React apps with SpacetimeDB — like convex-helpers but for SpacetimeDB",
   "license": "MIT",
   "type": "module",
