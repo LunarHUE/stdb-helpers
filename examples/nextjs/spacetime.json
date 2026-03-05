@@ -1,0 +1,9 @@
+{
+  "dev": {
+    "run": "npm run dev"
+  },
+  "_source-config": "spacetime.local.json",
+  "module-path": "./spacetimedb",
+  "server": "maincloud",
+  "database": "nextjs-slr94"
+}

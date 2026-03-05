@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"console.log\\(require\\(''/home/tristen/repos/personal/spacetimedb-helpers/node_modules/react/package.json''\\).version\\)\")"
+    ]
+  }
+}

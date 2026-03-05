@@ -27,6 +27,7 @@
           packages = with pkgs; [
             nodejs_20
             bun
+            watchexec
           ];
           shellHook = ''
             export PATH=$PATH:$(pwd)/node_modules/.bin

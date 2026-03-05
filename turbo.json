@@ -1,0 +1,21 @@
+{
+  "ui": "tui",
+  "tasks": {
+    "dev": {
+      "dependsOn": ["^dev"],
+      "outputs": ["examples/**/*.tsx"]
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["examples/**/*.tsx"]
+    },
+    "generate": {
+      "dependsOn": ["^generate"],
+      "outputs": ["examples/**/*.tsx"]
+    },
+    "publish": {
+      "dependsOn": ["^publish"],
+      "outputs": ["examples/**/*.tsx"]
+    }
+  }
+}
